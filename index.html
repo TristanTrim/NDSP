@@ -8,9 +8,51 @@
         color:#999999;
         background-repeat:no-repeat;background-position:top left;background-attachment:fixed;}
 </style>
+
+<!-- jquery requirement for golden layout -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"> </script>
+<!-- golden layout -->
+<script type="text/javascript" src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-base.css" />
+<link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-dark-theme.css" />
+
 </head>
 <body>
- foo bar baz
+
+<script type="text/javascript">
+
+var config = {
+    content: [{
+        type: 'row',
+        content:[{
+            type: 'column',
+            content:[{
+                type: 'component',
+                componentName: 'testComponent',
+                componentState: { label: 'B' }
+            },{
+                type: 'component',
+                componentName: 'testComponent',
+                componentState: { label: 'C' }
+            }]
+        },{
+            type: 'component',
+            componentName: 'testComponent',
+            componentState: { label: 'A' }
+        }]
+    }]
+};
+
+var myLayout = new GoldenLayout( config );
+
+myLayout.registerComponent( 'testComponent', function( container, componentState ){
+    container.getElement().html( '<h2>' + componentState.label + '</h2>' );
+});
+
+myLayout.init();
+
+</script>
+
 </body>
 </html>
 
