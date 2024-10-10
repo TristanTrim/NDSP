@@ -9,17 +9,34 @@
         background-repeat:no-repeat;background-position:top left;background-attachment:fixed;}
 </style>
 
-<!-- jquery requirement for golden layout -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"> </script>
-<!-- golden layout -->
-<script type="text/javascript" src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"></script>
+<!-- This is what we would do if we wanted to scrabble for online resources
+<!-- jquery requirement for golden layout --
+<script language="javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"> </script>
+<!-- golden layout --
+<script language="javascript" src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"></script>
 <link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-base.css" />
 <link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-dark-theme.css" />
+<!-- golden layout --
+<script language="javascript" src="https://npmcdn.com/regl/dist/regl.js"></script>
+ --- old online way -->
+
+<!-- jquery requirement for golden layout -->
+<script language="javascript" src="./js/jquery-1.11.1.min.js.js"> </script>
+
+<!-- golden layout -->
+<script language="javascript" src="./js/goldenlayout.min.js.js"></script>
+<link type="text/css" rel="stylesheet" href="./js/goldenlayout-base.css" />
+<link type="text/css" rel="stylesheet" href="./js/goldenlayout-dark-theme.css" />
+
+<!-- regl -->
+<script language="javascript" src="https://npmcdn.com/regl/dist/regl.js"></script>
 
 </head>
 <body>
 
 <script type="text/javascript">
+
+//var regl = createREGL();
 
 var config = {
     content: [{
@@ -28,7 +45,7 @@ var config = {
             type: 'column',
             content:[{
                 type: 'component',
-                componentName: 'testComponent',
+                componentName: 'pixGrid',
                 componentState: { label: 'B' }
             },{
                 type: 'component',
@@ -39,7 +56,12 @@ var config = {
             type: 'component',
             componentName: 'testComponent',
             componentState: { label: 'A' }
-        }]
+        },{
+            type: 'component',
+            componentName: 'testComponent',
+            componentState: { label: 'A' }
+        }
+        ]
     }]
 };
 
@@ -49,7 +71,26 @@ myLayout.registerComponent( 'testComponent', function( container, componentState
     container.getElement().html( '<h2>' + componentState.label + '</h2>' );
 });
 
+myLayout.registerComponent( 'pixGrid', function( container, componentState ){
+    //window.newDiv = document.createElement('div');
+    let thediv = container.getElement()[0];//.appendChild(newDiv);
+    window.regl = createREGL(thediv);
+
+    regl.frame(function () {
+      // Instead of magenta, we oscillate the color
+      regl.clear({
+        color: [0, 0.6 + 0.2*(1.0 + Math.cos(Date.now() * 0.005)), 0.7, 1]
+      })
+    })
+
+});
+
 myLayout.init();
+
+
+
+
+
 
 </script>
 
