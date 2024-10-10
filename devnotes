@@ -1,0 +1,9 @@
+
+
+budo is a tool for serving the page and refreshing it when you make edits. I'm trying it out:
+
+npm i budo
+
+
+regl is the gpu framework
+npm i -S regl
